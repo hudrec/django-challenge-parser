@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "head.html" %}
+<body>
+    <a href="{% url 'home' %}"><h2><=BACK</h2></a>
+    <table class="table table-bordered">
+        <tr>
+            <th style="border: 1px solid;">NAME</th>
+            <th style="border: 1px solid;">LINKS</th>
+        </tr>
+        {% for link in links %}
+            <tr>
+                <td style="border: 1px solid;">{{ link }}</td>
+                <td style="border: 1px solid;">{{ link.url }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <nav aria-label="Page navigation example">
+        {% if links.has_other_pages %}
+          <ul class="pagination">
+            {% if links.has_previous %}
+              <li class="page-item"><a href="?page={{ links.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+              <li class="page-item" class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in links.paginator.page_range %}
+              {% if links.number == i %}
+                <li class="page-item" class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if links.has_next %}
+              <li class="page-item"><a href="?page={{ links.next_page_number }}">&raquo;</a></li>
+            {% else %}
+              <li class="page-item" class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+          </ul>
+        {% endif %}
+    </nav>
+
+
+</body>
+</html>

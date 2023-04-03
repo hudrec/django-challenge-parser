@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "head.html" %}
+<body>
+
+    <form action="/" method="post" class="form-inline">
+        {% csrf_token %}
+        <input id="url" name="url" type="url" class="form-control"/>
+        <button type="submit" value="PARSE" class="btn btn-primary ">PARSE</button>
+    </form>
+
+    <table class="table table-border">
+        <tr>
+            <th >NAME</th>ºº
+            <th >TOTAL LINKS</th>
+        </tr>
+        {% for page in pages %}
+            <tr >
+                <td >
+                    <a href="{% url 'detail' page.id %}">{{ page }}</a>
+                </td>
+                <td >{{ page.pages.all|length }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+</body>
+</html>
